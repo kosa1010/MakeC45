@@ -38,21 +38,21 @@ public class MakeC45 {
         int nie_podobne = 0;
         String[][] informationSystem = concatenateArray(usersPrefers(), cars);
 
-        for (String[] item :
-                informationSystem) {
-            System.out.print(index + "\t");
-            for (String s :
-                    item) {
-                System.out.print(s + "\t");
-            }
-            System.out.println();
+//        for (String[] item :
+//                informationSystem) {
+//            System.out.print(index + "\t");
+//            for (String s :
+//                    item) {
+//                System.out.print(s + "\t");
+//            }
+//            System.out.println();
 //            index++;
-        }
+//        }
         try {
             String[][] informationSystem2 = setDecision(informationSystem);
             for (int i = 0; i < informationSystem2.length; i++) {
                 if (informationSystem2[i][14] == null) {
-                    System.out.println(i);
+//                    System.out.println(i);
                     index++;
                 } else {
                     if (informationSystem2[i][14] == "bardzo_podobne") {
@@ -95,7 +95,7 @@ public class MakeC45 {
                 {"15000", "2005", "3", "Benzyna", "0", "0", "1600"},
                 {"70000", "2011", "3", "0", "0", "0", "1600"},
                 {"23000", "2010", "4", "Diesel", "0", "0", "1800"},
-                {"7500", "2004", "5", "0", "0", "0", "1700"},
+                {"7500", "2004", "5", "0", "0", "Fiat", "1700"},
                 {"12500", "2010", "3", "0", "0", "0", "1600"},
                 {"40000", "2010", "4", "0", "Hatchback", "0", "2000"}
         };
@@ -144,13 +144,14 @@ public class MakeC45 {
                 sb.append(s);
                 sb.append(",");
             } else {
+                System.out.println("deedcyzja");
                 sb.append(s);
                 sb.append("\n");
             }
         }
         for (String[] sline : obj) {
             for (int i = 0; i < sline.length; i++) {
-                if (i != 18) {
+                if (i != 14) {
                     sb.append(sline[i]);
                     sb.append(",");
                 } else {
@@ -239,12 +240,47 @@ public class MakeC45 {
 //        }
         int index = 0;
         for (int i = 0; i < array.length; i++) {
-            if (Double.parseDouble(array[i][0]) + 5000 > Double.parseDouble(array[i][12]) &&
-                    Double.parseDouble(array[i][0]) - 5000 < Double.parseDouble(array[i][12])) {
-//                System.out.println(i);
+            if (Double.parseDouble(array[i][0]) + 10000 > Double.parseDouble(array[i][12]) &&
+                    Double.parseDouble(array[i][0]) - 10000 < Double.parseDouble(array[i][12])) {
+                if (Integer.parseInt(array[i][1]) + 5 > Integer.parseInt(array[i][11]) &&
+                        Integer.parseInt(array[i][1]) - 5 < Integer.parseInt(array[i][11])) {
+                    if (Integer.parseInt(array[i][2]) + 1 > Integer.parseInt(array[i][8]) &&
+                            Integer.parseInt(array[i][2]) - 1 < Integer.parseInt(array[i][8])) {
+                        if (Integer.parseInt(array[i][6]) + 500 > Integer.parseInt(array[i][13]) &&
+                                Integer.parseInt(array[i][6]) - 500 < Integer.parseInt(array[i][13])) {
+                            if (array[i][3].equals(array[i][9]) || array[i][3].equals("0")) {
+                                if (array[i][4].equals(array[i][7]) || array[i][7].equals("0")) {
+                                    if (array[i][5].equals(array[i][10]) || array[i][5].equals("0")) {
+                                        array[i][14] = "bardzo_podobne";
+                                        index++;
+                                    } else {
+                                        array[i][14] = "bardzo_podobne";
+                                        index++;
+                                    }
+                                } else {
+                                    array[i][14] = "bardzo_podobne";
+                                    index++;
+                                }
+                            } else {
+                                array[i][14] = "bardzo_podobne";
+                                index++;
+                            }
+                        } else {
+                            array[i][14] = "podobne";
+                            index++;
+                        }
+                    } else {
+                        array[i][14] = "podobne";
+                        index++;
+                    }
+                } else {
+                    array[i][14] = "nie_podobne";
+                    index++;
+                }
+            } else {
+                array[i][14] = "nie_podobne";
                 index++;
             }
-
         }
         System.out.println(index);
         return array;
