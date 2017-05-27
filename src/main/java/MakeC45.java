@@ -144,7 +144,6 @@ public class MakeC45 {
                 sb.append(s);
                 sb.append(",");
             } else {
-                System.out.println("deedcyzja");
                 sb.append(s);
                 sb.append("\n");
             }
@@ -239,47 +238,113 @@ public class MakeC45 {
 //            }
 //        }
         int index = 0;
+//        for (int i = 0; i < array.length; i++) {
+//            // 5222,1997,5,Diesel,Hatchback,Renault,1848,Hatchback,5,Benzyna,'Alfa Romeo',2011,40000,0
+//            if (Double.parseDouble(array[i][0]) + 10000 < Double.parseDouble(array[i][12]) ||
+//                    Double.parseDouble(array[i][0]) - 10000 > Double.parseDouble(array[i][12])) {
+//                array[i][14] = "nie_podobne";
+//            } else {
+//                if (Integer.parseInt(array[i][1]) + 5 < Integer.parseInt(array[i][11]) ||
+//                        Integer.parseInt(array[i][1]) - 5 > Integer.parseInt(array[i][11])) {
+//                    array[i][14] = "nie_podobne";
+//                } else {
+//                    if (Integer.parseInt(array[i][2]) + 1 < Integer.parseInt(array[i][8]) ||
+//                            Integer.parseInt(array[i][2]) - 1 > Integer.parseInt(array[i][8])) {
+//                        array[i][14] = "nie_podobne";
+//                    } else {
+//                        if (Integer.parseInt(array[i][6]) + 500 < Integer.parseInt(array[i][13]) ||
+//                                Integer.parseInt(array[i][6]) - 500 > Integer.parseInt(array[i][13])) {
+//                            array[i][14] = "nie_podobne";
+//                        } else {
+//                            if (!array[i][3].equals(array[i][9]) || !array[i][3].equals("0")) {
+//                                array[i][14] = "nie_podobne";
+//                            } else {
+//                                if (!array[i][4].equals(array[i][7]) || !array[i][7].equals("0")) {
+//                                    array[i][14] = "nie_podobne";
+//                                } else {
+//                                    if (!array[i][5].equals(array[i][10]) || !array[i][5].equals("0")) {
+//                                        array[i][14] = "nie_podobne";
+////                                        index++;
+//                                    } else {
+//                                        array[i][14] = "bardzo_podobne";
+////                                        index++;
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
         for (int i = 0; i < array.length; i++) {
-            if (Double.parseDouble(array[i][0]) + 10000 > Double.parseDouble(array[i][12]) &&
-                    Double.parseDouble(array[i][0]) - 10000 < Double.parseDouble(array[i][12])) {
-                if (Integer.parseInt(array[i][1]) + 5 > Integer.parseInt(array[i][11]) &&
-                        Integer.parseInt(array[i][1]) - 5 < Integer.parseInt(array[i][11])) {
-                    if (Integer.parseInt(array[i][2]) + 1 > Integer.parseInt(array[i][8]) &&
-                            Integer.parseInt(array[i][2]) - 1 < Integer.parseInt(array[i][8])) {
-                        if (Integer.parseInt(array[i][6]) + 500 > Integer.parseInt(array[i][13]) &&
-                                Integer.parseInt(array[i][6]) - 500 < Integer.parseInt(array[i][13])) {
-                            if (array[i][3].equals(array[i][9]) || array[i][3].equals("0")) {
-                                if (array[i][4].equals(array[i][7]) || array[i][7].equals("0")) {
-                                    if (array[i][5].equals(array[i][10]) || array[i][5].equals("0")) {
-                                        array[i][14] = "bardzo_podobne";
-                                        index++;
-                                    } else {
-                                        array[i][14] = "bardzo_podobne";
-                                        index++;
-                                    }
-                                } else {
-                                    array[i][14] = "bardzo_podobne";
-                                    index++;
-                                }
-                            } else {
-                                array[i][14] = "bardzo_podobne";
-                                index++;
-                            }
-                        } else {
-                            array[i][14] = "podobne";
-                            index++;
-                        }
-                    } else {
-                        array[i][14] = "podobne";
-                        index++;
-                    }
-                } else {
-                    array[i][14] = "nie_podobne";
-                    index++;
-                }
-            } else {
+            //paliwo
+            if (!array[i][3].equals(array[i][9]) && !array[i][3].equals("0")) {
                 array[i][14] = "nie_podobne";
-                index++;
+            } else {//nadwozie
+                if (!array[i][4].equals(array[i][7]) && !array[i][4].equals("0")) {
+                    array[i][14] = "nie_podobne";
+                } else {//marka
+                    if (!array[i][5].equals(array[i][10]) && !array[i][5].equals("0")) {
+                        array[i][14] = "nie_podobne";
+                    } else {//drzwi
+                        if (Integer.valueOf(array[i][2]) - 1 > Integer.valueOf(array[i][8]) ||
+                                Integer.valueOf(array[i][8]) > Integer.valueOf(array[i][2]) + 1) {
+                            array[i][14] = "nie_podobne";
+                        } else {
+                            if (Integer.valueOf(array[i][1]) - 5 > Integer.valueOf(array[i][11]) ||
+                                    Integer.valueOf(array[i][11]) > Integer.valueOf(array[i][1]) + 5) {
+                                array[i][14] = "nie_podobne";
+                            } else {
+                                //cena
+                                if (Double.parseDouble(array[i][0]) - 15000 > Double.parseDouble(array[i][12]) ||
+                                        Double.parseDouble(array[i][12]) > Double.parseDouble(array[i][0]) + 15000) {
+                                    array[i][14] = "nie_podobne";
+                                } else {
+                                    if (Double.parseDouble(array[i][0]) - 10000 > Double.parseDouble(array[i][12]) ||
+                                            Double.parseDouble(array[i][12]) > Double.parseDouble(array[i][0]) + 10000) {
+                                        array[i][14] = "podobne";
+                                    } else {
+                                        //pojemność
+                                        if (Integer.parseInt(array[i][6]) - 1000 > Integer.parseInt(array[i][13]) ||
+                                                Integer.parseInt(array[i][13]) > Integer.parseInt(array[i][6]) + 1000) {
+                                            array[i][14] = "nie_podobne";
+                                        } else {
+                                            if (Integer.parseInt(array[i][6]) - 500 > Integer.parseInt(array[i][13]) ||
+                                                    Integer.parseInt(array[i][13]) > Integer.parseInt(array[i][6]) - 500) {
+                                                array[i][14] = "podobne";
+                                            } else {
+                                                array[i][14] = "bardzo_podobne";
+                                            }
+                                        }
+                                    }
+
+
+                                    if (Integer.parseInt(array[i][6]) - 1000 > Integer.parseInt(array[i][13]) ||
+                                            Integer.parseInt(array[i][13]) > Integer.parseInt(array[i][6]) + 1000) {
+                                        array[i][14] = "nie_podobne";
+                                    } else {
+                                        if (Integer.parseInt(array[i][6]) - 500 > Integer.parseInt(array[i][13]) ||
+                                                Integer.parseInt(array[i][13]) > Integer.parseInt(array[i][6]) + 500) {
+                                            array[i][14] = "podobne";
+                                        } else {
+                                            if (Double.parseDouble(array[i][0]) - 15000 > Double.parseDouble(array[i][12]) ||
+                                                    Double.parseDouble(array[i][12]) > Double.parseDouble(array[i][0]) + 15000) {
+                                                array[i][14] = "nie_podobne";
+                                            } else {
+                                                if (Double.parseDouble(array[i][0]) - 10000 > Double.parseDouble(array[i][12]) ||
+                                                        Double.parseDouble(array[i][12]) > Double.parseDouble(array[i][0]) + 10000) {
+                                                    array[i][14] = "podobne";
+                                                } else {
+                                                    array[i][14] = "bardzo_podobne";
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
         System.out.println(index);
